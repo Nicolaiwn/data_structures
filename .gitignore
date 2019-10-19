@@ -167,5 +167,7 @@ dmypy.json
 
 ### C++ compiled files ###
 dynamic_array
+linked_list
+binary_search_three
 
 # End of https://www.gitignore.io/api/c++,linux,python,visualstudiocode
