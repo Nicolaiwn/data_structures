@@ -67,11 +67,6 @@ public:
 
     void insert(int index, int n) {
         if (0 <= index and index <= size) {
-            if (index == size) {
-                append(n);
-                return;
-            }
-
             if (size >= capacity) {
                 resize();
             }
@@ -86,12 +81,44 @@ public:
         }
     }
 
+    void shrink_to_fit() {
+        while (2*size <= capacity) {
+            capacity /= capacity;
+        }
+        int *tmp = new int[capacity];
+        for (int i=0; i<size; i++) {
+            tmp[i] = data[i];
+        }
+        delete[] data;
+        data = tmp;
+    }
+
     void remove(int index) {
         if (0 <= index and index < size) {
             for (int i=index; i<size; i++) {
                 data[i] = data[i+1];
             }
-            size--; 
+            size--;
+
+            if (float(size)/capacity < 0.25) {
+                shrink_to_fit();
+            } 
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
+    int pop() {
+        int tmp = data[size-1];
+        remove(size-1);
+        return tmp;
+    }
+
+    int pop(int index) {
+        if (0 <= index and index < size) {
+            int tmp = data[index];
+            remove(index);
+            return tmp;
         } else {
             throw out_of_range("List index out of range");
         }
