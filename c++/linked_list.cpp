@@ -75,6 +75,7 @@ public:
             head = new Node(n);
             tail = head;
             size++;
+            return;
         }
 
         Node *t = new Node(n);
