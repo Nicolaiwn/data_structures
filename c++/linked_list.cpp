@@ -83,6 +83,74 @@ public:
         size++;
     }
 
+    void insert(int index, int n) {
+        if (0 <= index and index <= size) {
+            if (index == size) {
+                append(n);
+                return;
+            }
+
+            Node *t = head;
+            for (int i=0; i<index-1; i++) {
+                t = t->next;
+            }
+
+            t->next = new Node(n, t->next);
+            size++;
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
+    void remove(int index) {
+        if (0 <= index and index < size) {
+            if (index == 0) {
+                Node *tmp = head->next;
+                delete head;
+                head = tmp;
+                size--;
+                return;
+            }
+
+            Node *t = head;
+            for (int i=0; i<index-1; i++) {
+                t = t->next;
+            }
+
+            Node *tmp = t->next->next;
+            delete t->next;
+            t->next = tmp;
+
+            if (index == size-1) {
+                tail = t;
+            }
+            size--;
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
+    int pop() {
+        int n = tail->data;
+        remove(size-1);
+        return n;
+    }
+
+    int pop(int index) {
+        if (0 <= index and index < size) {
+            Node *t = head;
+            for (int i=0; i<index; i++) {
+                t = t->next;
+            }
+
+            int n = t->data;
+            remove(index);
+            return n;
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
     void print() {
         Node *t = head;
         cout << "[";
