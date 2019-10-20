@@ -155,7 +155,7 @@ public:
     void print() {
         Node *t = head;
         cout << "[";
-        for (int i=0; i<size-1; i) {
+        for (int i=0; i<size-1; i++) {
             cout << t->data << ", ";
             t = t->next;
         }
