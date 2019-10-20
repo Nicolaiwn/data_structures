@@ -46,6 +46,17 @@ public:
         }
     }
 
+    ~DoublyLinkedList() {
+        Node *t = head;
+        Node *tmp;
+
+        for (int i=0; i<size; i++) {
+            tmp = t->right;
+            delete t;
+            t = tmp;
+        }
+    }
+
     int operator[](int index) {
         if (0 <= index and index < size) {
             Node *t = head;
@@ -74,6 +85,16 @@ public:
         tail->right = t;
         tail = tail->right;
         size++;
+    }
+
+    void print() {
+        Node *t = head;
+        cout << "[";
+        for (int i=0; i<size-1; i++) {
+            cout << t->data << ", ";
+            t = t->right;
+        }
+        cout << t->data << "]" << endl;
     }
 };
 
