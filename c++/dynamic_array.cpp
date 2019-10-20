@@ -1,3 +1,5 @@
+// Implementing the list ADT using the dynamic array data structure
+
 #include <iostream>
 #include <vector>
 #include <stdexcept>
@@ -31,6 +33,14 @@ public:
         delete[] data;
     }
 
+    int operator[](int index) {
+        if (0 <= index and index < size) {
+            return data[index];
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
     int length() {
         return size;
     }
@@ -55,6 +65,38 @@ public:
         size++;
     }
 
+    void insert(int index, int n) {
+        if (0 <= index and index <= size) {
+            if (index == size) {
+                append(n);
+                return;
+            }
+
+            if (size >= capacity) {
+                resize();
+            }
+
+            for (int i=size-1; i>=index; i--) {
+                data[i+1] = data[i];
+            }
+            data[index] = n;
+            size++;
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
+    void remove(int index) {
+        if (0 <= index and index < size) {
+            for (int i=index; i<size; i++) {
+                data[i] = data[i+1];
+            }
+            size--; 
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
     void print() {
         cout << "[";
         for (int i=0; i<size-1; i++) {
@@ -65,5 +107,5 @@ public:
 };
 
 int main() {
-    return 0;
+    // Example of use
 }
