@@ -1,3 +1,5 @@
+// Implementing the list ADT using the singly linked list data structure
+
 #include <iostream>
 #include <vector>
 #include <stdexcept>
@@ -52,6 +54,22 @@ public:
         }
     }
 
+    int operator[](int index) {
+        if (0 <= index and index < size) {
+            Node *t = head;
+            for (int i=0; i<index; i++) {
+                t = t->next;
+            }
+            return t->data;
+        } else {
+            throw out_of_range("List index out of range");
+        }
+    }
+
+    int length() {
+        return size;
+    }
+
     void append(int n) {
         if (head == nullptr) {
             head = new Node(n);
@@ -77,5 +95,5 @@ public:
 };
 
 int main() {
-    return 0;
+    // Example of use
 }
